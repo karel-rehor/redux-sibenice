@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { guessWord } from '../../actions/actions'
 
 const handleGuesses = (state: {guesses: string[]} ) => state.guesses
 const handleWordGuessMax = (state: { maxGuesses: number }) => state.maxGuesses
@@ -28,7 +29,8 @@ const WordGuessForm = () => {
         }else if(guess.length < 1){
             alert('Please submit a word')
         }else {
-            dispatch({type: 'guessWord', payload: guess})
+            //dispatch({type: 'guessWord', payload: guess})
+            dispatch(guessWord(guess))
         }
 
         setGuess('')

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { guessLetter } from '../../actions/actions'
 
 // @ts-ignore
 const LetterCell = ({letter}) => {
@@ -8,7 +9,7 @@ const LetterCell = ({letter}) => {
 
     const handleLetterClick = (ev: any) => {
        // alert(ev.target.id + ' ' + ev.target.textContent)
-        dispatch({type: 'guessLetter', payload: ev.target.textContent})
+        dispatch(guessLetter(ev.target.textContent))
     }
 
     return letter.used ?
