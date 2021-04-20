@@ -30,7 +30,27 @@ const list: string[] = [
     'chihuahua',
     'labrador',
     'tabby-cat',
-    'porpoise'
+    'porpoise',
+    'squid',
+    'tentacle',
+    'opossum',
+    'racoon',
+    'anemone',
+    'quisling',
+    'raspberry',
+    'turmeric',
+    'ginger',
+    'quinine',
+    'mosquito',
+    'ukulele',
+    'camel',
+    'forest',
+    'monkey',
+    'azalea',
+    'zigzag',
+    'lacquer',
+    'quantum',
+    'venus'
 ]
 
 export default list

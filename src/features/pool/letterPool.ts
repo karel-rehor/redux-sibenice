@@ -10,7 +10,7 @@ export const getLettersFromString : letterArrayFromString = function(letters: st
         .map((ch) => (
             result.push({char: ch.charCodeAt(0), altChars: [], used: false, lit: ch})
         ))
-    console.log('DEBUG result ' + JSON.stringify(result))
+    //console.log('DEBUG result ' + JSON.stringify(result))
     return result;
 }
 

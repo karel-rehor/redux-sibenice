@@ -14,6 +14,10 @@ export const guessLetter = (letter: string) => (
     { type: 'guessLetter', payload: letter}
 )
 
+export const guessLetterByCode = (letter: number) => (
+    { type: 'guessLetter', payload: letter}
+)
+
 export const guessWord = (word: string) => (
     { type: 'guessWord', payload: word}
 )

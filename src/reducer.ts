@@ -8,7 +8,7 @@ export default function appReducer(state = initialState, action: AnyAction){
     switch(action.type){
         case 'init':
             const ts = getLettersFromString(action.payload.targetString.toUpperCase())
-            const gs = action.payload.targetString.replaceAll(/\w/g, '*');
+            const gs = action.payload.targetString.replace(/\w/g, '*');
             return {
                 ...state,
                 letters: getLettersFromString(ASCII_UPPER),
@@ -22,7 +22,7 @@ export default function appReducer(state = initialState, action: AnyAction){
             }
         case 'guessLetter':
             //if reached max letters no more guessing
-            console.log(`DEBUG guessing letter ${action.payload}`)
+            //console.log(`DEBUG guessing letter ${action.payload}`)
             if( state.letterCount === state.maxLetters){
                 return state;
             }
@@ -54,7 +54,7 @@ export default function appReducer(state = initialState, action: AnyAction){
             let matched = getStringFromLetters(state.targetWord) === guess
             let gString = state.guessString
             gss.push(guess)
-            console.log(`DEBUG matcher ${getStringFromLetters(state.targetWord)} : ${guess}`)
+            //console.log(`DEBUG matcher ${getStringFromLetters(state.targetWord)} : ${guess}`)
             return {
                 ...state,
                 guessed: matched,
@@ -62,7 +62,7 @@ export default function appReducer(state = initialState, action: AnyAction){
                 guessString: matched ? getStringFromLetters(state.targetWord) : gString
             };
         case 'reset':
-            console.log('DEBUG Resetting')
+            //console.log('DEBUG Resetting')
             let twLtrs = state.targetWord;
             let guessStr = state.guessString;
             let twHolder = [...twLtrs]
@@ -70,7 +70,7 @@ export default function appReducer(state = initialState, action: AnyAction){
                 ...initialState,
                 letters: getLettersFromString(ASCII_UPPER),
                 targetWord: twHolder,
-                guessString: guessStr.replaceAll(/\w/g, '*')
+                guessString: guessStr.replace(/\w/g, '*')
 
             };
         case 'reveal':
