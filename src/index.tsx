@@ -3,10 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import store from './store'
+import {Provider} from "react-redux";
+
+store.dispatch({ type: 'init', payload: { targetString: 'gorilla', maxLetters: 10, maxGuesses: 3 }})
+
+//store.dispatch({ type: 'guessWord', payload: 'banana'})
+
+store.dispatch( { type: 'guessLetter', payload: 'L'})
+
+store.dispatch( { type: 'guessLetter', payload: 'G'})
+
+console.log(`DEBUG state ${JSON.stringify(store.getState())}`)
+
+//store.dispatch({type: 'reveal'})
 
 ReactDOM.render(
   <React.StrictMode>
+      <Provider store={store}>
     <App />
+      </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
