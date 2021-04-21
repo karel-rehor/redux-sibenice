@@ -13,9 +13,9 @@ const LetterCell = ({letter}) => {
     }
 
     return letter.used ?
-    <span id={letter.char} key={letter.char} style={{paddingLeft: 10, paddingRight: 10, textDecoration: 'line-through', color: 'grey'}}>{letter.lit}</span> :
+    <span id={letter.char} key={letter.char} style={{padding: 10, textAlign: 'left', textDecoration: 'line-through', color: 'grey'}}>{letter.lit}</span> :
     <span onClick={handleLetterClick} key={letter.char} id={letter.char}
-          style={{paddingLeft: 10, paddingRight: 10, cursor: 'pointer'}}>{letter.lit}</span>
+          style={{padding:10, textAlign: 'left', cursor: 'pointer'}}>{letter.lit}</span>
 
 }
 
