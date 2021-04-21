@@ -108,7 +108,6 @@ describe('sample test', () => {
 
         expect(state.guessed).toBe(false)
 
-        console.log(`DEBUG state ${JSON.stringify(state)}`)
     })
 
     it('guesses non-matching letter', () => {

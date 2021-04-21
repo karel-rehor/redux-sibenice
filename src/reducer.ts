@@ -84,7 +84,6 @@ export default function appReducer(state = initialState, action: AnyAction){
 
             };
         case 'reveal':
-            console.log(`DEBUG reveal ${getStringFromLetters(state.targetWord)}`)
             const guessArr = new Array(state.maxGuesses)
             return {
                 ...state,
