@@ -1,3 +1,4 @@
+"use strict"
 import appReducer from '../reducer'
 import { initialState, hmState } from '../AppState'
 import { getLettersFromString } from '../features/pool/letterPool'
@@ -23,6 +24,7 @@ const deepFreeze = (obj: Object) => {
             deepFreeze(obj[prop])
         }
     })
+    return Object.freeze(obj)
 }
 
 describe('sample test', () => {
@@ -40,8 +42,43 @@ describe('sample test', () => {
         deepFreeze(state)
     })
 
+    const setupSimpleMockState = () => {
+        //setup mock game state
+        state = appReducer(state, guessLetter('A'))
+        state = appReducer(state, guessLetter('R'))
+        state = appReducer(state, guessLetter('S'))
+        state = appReducer(state, guessLetter('E'))
+        state = appReducer(state, guessWord('CHEETAH'))
+
+        let guessString = targetString.toUpperCase().replace(/[B-D,F-Q,T-Z]/g, '*')
+
+        //verify mock game state
+        expect(state.guessString).toEqual(guessString)
+
+        let match = state.letters.find(( letter ) => letter.lit === 'A' )
+        expect(match).toEqual({char:65,altChars:[],used:true,lit:"A"})
+
+        match = state.letters.find(( letter ) => letter.lit === 'E' )
+        expect(match).toEqual({char:69,altChars:[],used:true,lit:"E"})
+
+        match = state.letters.find(( letter ) => letter.lit === 'R' )
+        expect(match).toEqual({char:82,altChars:[],used:true,lit:"R"})
+
+        match = state.letters.find(( letter ) => letter.lit === 'S' )
+        expect(match).toEqual({char:83,altChars:[],used:true,lit:"S"})
+
+        expect(state.letterCount).toBe(1)
+
+        expect(state.guesses.length).toBe(1)
+        expect(state.guesses).toContain('CHEETAH')
+    }
+
     it('passes', () => {
         expect(true).toBe(true)
+        const myObject = {name: 'thing', value: 'it is a thing'}
+        deepFreeze(myObject)
+        // true to change frozen object
+        // myObject.value = 'to je vec'
     })
 
     it( 'initializes state', () => {
@@ -126,42 +163,15 @@ describe('sample test', () => {
     })
 
     it('resets the game', () => {
-        //setup mock game state
-        state = appReducer(state, guessLetter('A'))
-        state = appReducer(state, guessLetter('R'))
-        state = appReducer(state, guessLetter('S'))
-        state = appReducer(state, guessLetter('E'))
-        state = appReducer(state, guessWord('CHEETAH'))
-
-        let guessString = targetString.toUpperCase().replace(/[B-D,F-Q,T-Z]/g, '*')
-
-        //verify mock game state
-        expect(state.guessString).toEqual(guessString)
-
-        let match = state.letters.find(( letter ) => letter.lit === 'A' )
-        expect(match).toEqual({char:65,altChars:[],used:true,lit:"A"})
-
-        match = state.letters.find(( letter ) => letter.lit === 'E' )
-        expect(match).toEqual({char:69,altChars:[],used:true,lit:"E"})
-
-        match = state.letters.find(( letter ) => letter.lit === 'R' )
-        expect(match).toEqual({char:82,altChars:[],used:true,lit:"R"})
-
-        match = state.letters.find(( letter ) => letter.lit === 'S' )
-        expect(match).toEqual({char:83,altChars:[],used:true,lit:"S"})
-
-        expect(state.letterCount).toBe(1)
-
-        expect(state.guesses.length).toBe(1)
-        expect(state.guesses).toContain('CHEETAH')
+        setupSimpleMockState()
 
         deepFreeze(state)
         state = appReducer(state, reset())
 
-        guessString = targetString.replace(/\w/g, '*')
+        const guessString = targetString.replace(/\w/g, '*')
         expect(state.guessString).toEqual(guessString)
 
-        match = state.letters.find(( letter ) => letter.lit === 'A' )
+        let match = state.letters.find(( letter ) => letter.lit === 'A' )
         expect(match).toEqual({char:65,altChars:[],used:false,lit:"A"})
 
         match = state.letters.find(( letter ) => letter.lit === 'E' )
@@ -180,34 +190,7 @@ describe('sample test', () => {
     })
 
     it('reveals the word', () => {
-        //setup mock game state
-        state = appReducer(state, guessLetter('A'))
-        state = appReducer(state, guessLetter('R'))
-        state = appReducer(state, guessLetter('S'))
-        state = appReducer(state, guessLetter('E'))
-        state = appReducer(state, guessWord('CHEETAH'))
-
-        let guessString = targetString.toUpperCase().replace(/[B-D,F-Q,T-Z]/g, '*')
-
-        expect(state.guessString).toEqual(guessString)
-
-        //verify mock game state
-        let match = state.letters.find(( letter ) => letter.lit === 'A' )
-        expect(match).toEqual({char:65,altChars:[],used:true,lit:"A"})
-
-        match = state.letters.find(( letter ) => letter.lit === 'E' )
-        expect(match).toEqual({char:69,altChars:[],used:true,lit:"E"})
-
-        match = state.letters.find(( letter ) => letter.lit === 'R' )
-        expect(match).toEqual({char:82,altChars:[],used:true,lit:"R"})
-
-        match = state.letters.find(( letter ) => letter.lit === 'S' )
-        expect(match).toEqual({char:83,altChars:[],used:true,lit:"S"})
-
-        expect(state.letterCount).toBe(1)
-
-        expect(state.guesses.length).toBe(1)
-        expect(state.guesses).toContain('CHEETAH')
+        setupSimpleMockState()
 
         deepFreeze(state)
         state = appReducer(state, reveal())
@@ -216,7 +199,5 @@ describe('sample test', () => {
         expect(state.letterCount).toBe(state.maxLetters)
         expect(state.guesses.length).toBe(state.maxGuesses)
         expect(state.guessed).toBe(false)
-
     })
-
 })

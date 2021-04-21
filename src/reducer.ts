@@ -29,6 +29,15 @@ export default function appReducer(state = initialState, action: AnyAction){
             const ltrs = state.letters
             //make deep copy - has to remain immutable
             let letters = [...ltrs]
+            //deep copy each letter
+            // N.B. if altChars implemented contents also will need deep copy
+            for(let i = 0; i < state.letters.length; i++){
+                letters[i] = { char: state.letters[i].char,
+                            altChars: state.letters[i].altChars,
+                            used: state.letters[i].used,
+                            lit: state.letters[i].lit
+                            }
+            }
             const char = typeof action.payload === 'number' ? action.payload : action.payload.charCodeAt(0)
             let letter = getLetterByCode(letters, char);
             if(!letter || (letter && letter.used)){
