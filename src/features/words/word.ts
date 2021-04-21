@@ -1,4 +1,5 @@
 import {letter, letterArrayGetter} from "../../types/letter";
+import list from './vocabulary'
 
 export let targetWord: letter[] = []
 
@@ -30,4 +31,8 @@ export const getTargetWord: letterArrayGetter = function(){
     return targetWord;
 }
 
+
+export const getRandomWord = () => {
+    return list[Math.floor(Math.random() * list.length)]
+}
 

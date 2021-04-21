@@ -1,19 +1,13 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { initialize } from '../../actions/actions'
-
-import list from './vocabulary'
-
-const getWord = () => {
-    return list[Math.floor(Math.random() * list.length)]
-}
+import { getRandomWord } from '../words/word'
 
 const NewGameButton = () => {
     const dispatch = useDispatch()
 
     const handleNewGame = (ev: any) => {
-        //dispatch({type: 'init', payload: {targetString: getWord(), maxGuesses: 3, maxLetters: 10}})
-        dispatch(initialize({targetString: getWord(), maxGuesses: 3, maxLetters: 10}))
+        dispatch(initialize({targetString: getRandomWord(), maxGuesses: 3, maxLetters: 10}))
     }
 
     return <button onClick={handleNewGame}>New Game</button>

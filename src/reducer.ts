@@ -38,6 +38,7 @@ export default function appReducer(state = initialState, action: AnyAction){
                             lit: state.letters[i].lit
                             }
             }
+            // end deep copy of each letter
             const char = typeof action.payload === 'number' ? action.payload : action.payload.charCodeAt(0)
             let letter = getLetterByCode(letters, char);
             if(!letter || (letter && letter.used)){
