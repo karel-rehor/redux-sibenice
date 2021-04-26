@@ -1,5 +1,5 @@
 import React, {ReactElement, ReactComponentElement} from 'react'
-import { render } from '@testing-library/react'
+import { render, fireEvent, screen } from '@testing-library/react'
 import { createStore } from 'redux'
 import "@testing-library/jest-dom/extend-expect";
 
@@ -66,6 +66,18 @@ describe('sample render test', () => {
 
         //Can also inspect entire element
         debug()
+
+    })
+
+    it( 'fires an event', async () => {
+
+        const {container, debug } = renderWithState(<LetterGrid />, {initialState: state})
+
+        fireEvent.click(container.querySelector(`[id='${'A'.charCodeAt(0)}']`) as Element)
+
+        const letter = await screen.getByTestId('lttr' + 'A'.charCodeAt(0))
+
+        expect(letter.style.textDecoration).toEqual('line-through')
 
     })
 
