@@ -10,6 +10,8 @@ import appReducer from "../reducer";
 import {hmState, initialState} from "../AppState";
 import {initialize} from "../actions/actions";
 import {Provider} from "react-redux";
+import mockMe from "../features/game/mockMe"
+import mockingBird from "../features/game/mockingBird"
 
 const targetString = 'leopard'
 const MAX_GUESS = 3
@@ -17,6 +19,11 @@ const MAX_LETTER = 10
 
 const mockCallback = jest.fn(x => x * x)
 const bareMock = jest.fn();
+
+
+jest.mock('../features/game/mockMe', () => jest.fn(() => ('FACTORY') ))
+
+//jest.mock('../features/game/mockMe')
 
 jest.mock('axios')
 
@@ -126,6 +133,11 @@ describe('sample render test', () => {
         result().then((data: any) => {
             expect(data.name).toEqual( 'Barbara')
         })
+    })
+
+    it('mocks local package', () => {
+        console.log(`DEBUG local package mock ${mockMe('Grizzly bear ')}`)
+        console.log(`DEBUG local package mock nested ${mockingBird('Grizzly bear ')}`)
     })
 
 })
